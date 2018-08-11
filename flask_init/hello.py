@@ -1,6 +1,6 @@
 # import os
 
-from flask import Flask
+from flask import Flask, url_for
 
 
 app = Flask(__name__)
@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return 'Index Page'
+    return url_for('show_user_profile', username='richard')
 
 
 @app.route('/user/<username>')
