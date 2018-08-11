@@ -6,11 +6,12 @@ from flask import Flask, request
 app = Flask(__name__)
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.values:
+    if request.method == 'POST':
         return f'Hello {request.values["username"]}'
-    return '<form method="get" action="/login"><input type="text" name="username" /><p><button type="submit">Submit</button></form>'
+    else:
+        return '<form method="post" action="/login"><input type="text" name="username" /><p><button type="submit">Submit</button></form>'
 
 
 if __name__ == '__main__':
