@@ -1,6 +1,6 @@
 # import os
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 
 app = Flask(__name__)
@@ -11,7 +11,7 @@ def login():
     error = None
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
-            return f'Welcome back {request.form["username"]}'
+            return redirect(url_for('welcome', username=request.form.get('username')))
         else:
             error = 'Incorrect Username and Password'
 
@@ -23,6 +23,11 @@ def valid_login(username, password):
         return True
     else:
         return False
+
+
+@app.route('/welcome/<username>')
+def welcome(username):
+    return render_template('welcome.html', username=username)
 
 
 if __name__ == '__main__':
