@@ -1,11 +1,17 @@
-{% extends "base.html" %} {% block head %}
-<script type="text/javascript">var x = 1;</script> {{ super() }} {% endblock head %}} {% block title %}Welcome{% endblock title %} {% block content %} {% with messages = get_flashed_messages()
-%} {% if messages %}
-<ul class="flashes">
-    {% for message in messages %}
-    <li>{{ message }}</li>
-    {% endfor %} {% endif %} {% endwith %}
+{% extends "base.html" %}
 
-    <p>Welcome, {{ username }}</p>
+{% block head %}
+    <script type="text/javascript">var x = 1;</script>
+    {{ super() }}
+{% endblock head %}}
 
-    {% endblock content %}
+{% block title %}Welcome{% endblock title %}
+
+{% block content %}
+
+
+<p>
+    Welcome, {{ username }} - <a href="{{ url_for('logout') }}">logout</a>
+</p>
+
+{% endblock content %}
