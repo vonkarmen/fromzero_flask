@@ -2,6 +2,8 @@
 
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 
+import logging
+from logging.handlers import RotatingFileHandler
 
 app = Flask(__name__)
 
@@ -16,6 +18,8 @@ def login():
             return redirect(url_for('welcome'))
         else:
             error = 'Incorrect Username and Password'
+            app.logger.warning(
+                f'Incorrect username and password for user {request.form.get("username")}')
 
     return render_template('login.html', error=error)
 
@@ -43,8 +47,17 @@ def welcome():
 
 
 if __name__ == '__main__':
+    # user for cloud9 env
     # host = os.getenv('IP', '0.0.0.0')
     # port = int(os.getenv('PORT', 5000))
     # app.run(host=host, port=port)
+
+    # secrets
     app.secret_key = '0\x89UX\x99\xc55\x13rZ\xba\xe3\xa7S<u\xd6,\xda\xb2&vI'
+
+    # logging
+    handler = RotatingFileHandler('error.log', maxBytes=1000, backupCount=1)
+    handler.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+
     app.run(debug=True)
