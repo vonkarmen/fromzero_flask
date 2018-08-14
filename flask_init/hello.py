@@ -1,6 +1,6 @@
 # import os
 
-from flask import Flask, render_template, request, redirect, url_for, flash, make_response
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 
 
 app = Flask(__name__)
@@ -12,9 +12,8 @@ def login():
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
             flash('Succesfully logged in')
-            response = make_response(redirect(url_for('welcome')))
-            response.set_cookie('username', request.form.get('username'))
-            return response
+            session['username'] = request.form.get('username')
+            return redirect(url_for('welcome'))
         else:
             error = 'Incorrect Username and Password'
 
@@ -23,9 +22,8 @@ def login():
 
 @app.route('/logout')
 def logout():
-    response = make_response(redirect(url_for('login')))
-    response.set_cookie('username', '', expires=0)
-    return response
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 
 def valid_login(username, password):
@@ -37,9 +35,8 @@ def valid_login(username, password):
 
 @app.route('/')
 def welcome():
-    username = request.cookies.get('username')
-    if username:
-        return render_template('welcome.html', username=username)
+    if 'username' in session:
+        return render_template('welcome.html', username=session['username'])
 
     else:
         return redirect(url_for('login'))
@@ -49,5 +46,5 @@ if __name__ == '__main__':
     # host = os.getenv('IP', '0.0.0.0')
     # port = int(os.getenv('PORT', 5000))
     # app.run(host=host, port=port)
-    app.secret_key = 'itsasecret'
+    app.secret_key = '0\x89UX\x99\xc55\x13rZ\xba\xe3\xa7S<u\xd6,\xda\xb2&vI'
     app.run(debug=True)
