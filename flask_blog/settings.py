@@ -1,0 +1,2 @@
+SECRET_KEY = '0\x89UX\x99\xc55\x13rZ\xba\xe3\xa7S<u\xd6,\xda\xb2&vI'
+DEBUG = True
