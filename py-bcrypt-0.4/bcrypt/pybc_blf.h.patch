@@ -1,0 +1,12 @@
+--- a/bcrypt/pybc_blf.h
++++ b/bcrypt/pybc_blf.h
+@@ -35,8 +35,8 @@
+ #define _PYBC_BLF_H_
+ 
+ #include <sys/types.h>
+-#if __STDC_VERSION__ >= 199901L /* C99 or later */
+ #include <stdint.h>
++#if __STDC_VERSION__ >= 199901L /* C99 or later */
+ typedef uint8_t u_int8_t;
+ typedef uint16_t u_int16_t;
+ typedef uint32_t u_int32_t;

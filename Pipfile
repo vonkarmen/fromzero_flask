@@ -9,6 +9,8 @@ pymysql = "*"
 flask-sqlalchemy = "*"
 flask-script = "*"
 flask-wtf = "*"
+flask-migrate = "*"
+"b467e2c" = {editable = true, path = "./py-bcrypt-0.4"}
 
 [dev-packages]
 "flake8" = "*"
